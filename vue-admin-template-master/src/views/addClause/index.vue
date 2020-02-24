@@ -139,7 +139,7 @@ export default {
       })
     },
     onHandleChange() {
-      console.log(JSON.stringify(this.valueId))
+      // console.log(JSON.stringify(this.valueId))
       if (this.valueId.length === 1) {
         this.ruleForm.directoryForeignKey = this.valueId[0]
       } else {
@@ -151,7 +151,7 @@ export default {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           var _this = this
-          console.log(JSON.stringify(_this.ruleForm))
+          // console.log(JSON.stringify(_this.ruleForm))
           this.$http.post(this.$url + 'clause/addClause', _this.ruleForm).then((res) => {
             if (res.data.code == '2001') {
               this.$message({
@@ -178,13 +178,13 @@ export default {
     // },
     // 文本编译器点击事件
     onClick(e, editor) {
-      console.log('Element clicked')
-      console.log(e)
-      console.log(editor)
+      // console.log('Element clicked')
+      // console.log(e)
+      // console.log(editor)
     },
     // 获取文本编译器的HTML内容
     getContent() {
-      alert(this.$refs.editor.getContent())
+      // alert(this.$refs.editor.getContent())
     },
     // 设置文本编译器的HTML内容
     setContent(msg) {

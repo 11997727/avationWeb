@@ -59,12 +59,12 @@
           <el-button
             size="mini"
             @click="handleEdit(scope.$index, scope.row)"
-          >Edit</el-button>
+          >查看</el-button>
           <el-button
             size="mini"
             type="danger"
             @click="handleDelete(scope.$index, scope.row.consultId)"
-          >Delete</el-button>
+          >删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -82,7 +82,7 @@
 
     <!--弹出框-->
 
-    <el-dialog title="咨询内容详情" :visible.sync="dialogFormVisible">
+    <el-dialog title="咨询内容详情" :visible.sync="dialogFormVisible" :close-on-press-escape=false :close-on-click-modal=false :show-close="false">
       <el-form :model="form">
         <el-form-item label="咨询人：" label-width="120px">
           <el-input v-model="form.userName" autocomplete="off" :readonly="true" />

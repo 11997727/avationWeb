@@ -54,7 +54,7 @@
     </el-form-item>
     <el-form-item>
       <el-button type="primary" @click="submitForm('ruleForm')">立即修改</el-button>
-      <el-button @click="resetForm('ruleForm')">重置</el-button>
+<!--      <el-button @click="resetForm('ruleForm')">重置</el-button>-->
       <el-button @click="getBack()">返回</el-button>
     </el-form-item>
   </el-form>
@@ -134,7 +134,7 @@ export default {
       this.$http.post(this.$url + 'clause/queryClauseByClauseId', params).then((res) => {
         if (res.data.code == '2001') {
           this.ruleForm = res.data.data// 把数据放入页面
-          console.log(JSON.stringify(this.ruleForm))
+          // console.log(JSON.stringify(this.ruleForm))
           this.ruleForm.regulationsId = res.data.data.regulationsForeignkey//视图的参数名和回传的数据不一致，手动赋值
           const params = new URLSearchParams()
           params.append('directoryId', this.ruleForm.regulationsId)//获取当前的法规主键
@@ -164,7 +164,7 @@ export default {
       })
     },
     onHandleChange() {
-      console.log(JSON.stringify(this.valueId))
+      // console.log(JSON.stringify(this.valueId))
       if (this.valueId.length === 1) {
         this.ruleForm.directoryForeignKey = this.valueId[0]
       } else {
@@ -176,7 +176,7 @@ export default {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           var _this = this
-          console.log(JSON.stringify(_this.ruleForm))
+          // console.log(JSON.stringify(_this.ruleForm))
           this.$http.post(this.$url + 'clause/updateClause', _this.ruleForm).then((res) => {
             if (res.data.code == '2001') {
               this.$message({
@@ -194,20 +194,20 @@ export default {
       })
     },
     // 清空表单以及富文本编译器内容
-    resetForm(formName) {
-      this.$refs[formName].resetFields()
-      this.$refs.editor.clear()
-      this.options = []
-    },
+    // resetForm(formName) {
+    //   this.$refs[formName].resetFields()
+    //   this.$refs.editor.clear()
+    //   this.options = []
+    // },
     // 文本编译器点击事件
     onClick(e, editor) {
-      console.log('Element clicked')
-      console.log(e)
-      console.log(editor)
+      // console.log('Element clicked')
+      // console.log(e)
+      // console.log(editor)
     },
     // 获取文本编译器的HTML内容
     getContent() {
-      alert(this.$refs.editor.getContent())
+      // alert(this.$refs.editor.getContent())
     },
     // 设置文本编译器的HTML内容
     setContent(msg) {

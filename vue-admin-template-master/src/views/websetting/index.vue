@@ -42,7 +42,7 @@
       </el-form-item>
 
       <el-form-item>
-        <el-button type="primary" @click="submitForm('ruleForm')">立即创建</el-button>
+        <el-button type="primary" @click="submitForm('ruleForm')">确认</el-button>
         <el-button @click="resetForm('ruleForm')">重置</el-button>
       </el-form-item>
     </el-form>
@@ -119,7 +119,7 @@ export default {
   methods: {
     // 移除图片清空图片的base64
     handleRemove(file, fileList) {
-      console.log(file, fileList)
+      // console.log(file, fileList)
       this.ruleForm.webLogoPath = ''
     },
     // 触发事件
@@ -171,7 +171,7 @@ export default {
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          console.log(JSON.stringify(this.ruleForm))
+          // console.log(JSON.stringify(this.ruleForm))
           this.$http.post(this.$url + 'admin/updateWeb',this.ruleForm).then((res) => {
             if (res.data.code == '2001') {
               this.$message({
@@ -190,6 +190,7 @@ export default {
     },
     resetForm(formName) {
       this.$refs[formName].resetFields()
+      this.ruleForm.webLogoPath=''
     }
   }
 }

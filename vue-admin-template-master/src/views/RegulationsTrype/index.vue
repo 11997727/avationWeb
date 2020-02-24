@@ -46,12 +46,12 @@
           <el-button
             size="mini"
             @click="handleEdit(scope.$index, scope.row)"
-          >Edit</el-button>
+          >编辑</el-button>
           <el-button
             size="mini"
             type="danger"
             @click="handleDelete(scope.$index, scope.row)"
-          >Delete</el-button>
+          >删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -88,12 +88,12 @@
             <el-button
               size="mini"
               @click="handleEdit2(scope.$index, scope.row)"
-            >Edit</el-button>
+            >编辑</el-button>
             <el-button
               size="mini"
               type="danger"
               @click="handleDelete2(scope.$index, scope.row)"
-            >Delete</el-button>
+            >删除</el-button>
           </template>
         </el-table-column>
 
@@ -103,15 +103,15 @@
     <!-- Form -->
     <!--    <el-button type="text" @click="dialogFormVisible = true">打开嵌套表单的 Dialog</el-button>-->
 
-    <el-dialog title="修改二级分类" :visible.sync="dialogFormVisible">
-      <el-form :model="form">
-        <el-form-item label="请输入二级分类名称">
+    <el-dialog title="修改二级分类" :visible.sync="dialogFormVisible" :close-on-press-escape=false :close-on-click-modal=false :show-close="false">
+      <el-form :model="form" :rules="rules" ref="form">
+        <el-form-item label="请输入二级分类名称" prop="cname">
           <el-input v-model="form.cname" autocomplete="off" />
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button @click="dialogFormVisible=false">取 消</el-button>
-        <el-button type="primary" @click="dialogForm">确 定</el-button>
+        <el-button @click="quxiao('form')">取 消</el-button>
+        <el-button type="primary" @click="dialogForm('form')">确 定</el-button>
       </div>
     </el-dialog>
 
@@ -144,7 +144,14 @@ export default {
       gridData: [],
       cid: '',
       regulationsTypeId: '',
-      form: {}
+      form: {
+        cname:''
+      },
+      rules: {
+        cname: [
+          { required: true, message: '请输入二级分类名称', trigger: 'blur' }
+        ]
+      }
     }
   },
   mounted() {
@@ -256,23 +263,36 @@ export default {
       })
     },
     // 提交表单修改二级分类名
-    dialogForm() {
-      var _this = this
-      _this.$http.get(this.$url + 'cassify/classifyUpdateByCid', {
-        params: { 'cid': this.cid, 'cname': this.form.cname }
-      }).then((res) => {
-        if (res.data.code == '2001') {
-          this.$message({
-            type: 'success',
-            message: '修改成功 '
+    dialogForm(form) {
+      this.$refs[form].validate((valid) => {
+        if (valid) {
+          var _this = this
+          _this.$http.get(this.$url + 'cassify/classifyUpdateByCid', {
+            params: { 'cid': this.cid, 'cname': this.form.cname }
+          }).then((res) => {
+            if (res.data.code == '2001') {
+              this.$message({
+                type: 'success',
+                message: '修改成功 '
+              })
+              _this.dialogFormVisible = false
+              _this.getGridData()
+            } else {
+              _this.$message.error('修改失败')
+            }
+            // this.form.cname = ''
+            this.$refs[form].resetFields();
           })
-          _this.dialogFormVisible = false
-          _this.getGridData()
         } else {
-          _this.$message.error('修改失败')
+          console.log('error submit!!');
+          return false;
         }
-        this.form.cname = ''
-      })
+      });
+    },
+
+    quxiao(form){
+      this.dialogFormVisible=false
+      this.$refs[form].resetFields();
     },
     closeDialog() {
       this.getData()

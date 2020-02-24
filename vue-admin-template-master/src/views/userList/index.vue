@@ -69,7 +69,7 @@
           <el-button
             size="mini"
             @click="handleEdit(scope.$index, scope.row)"
-          >Edit</el-button>
+          >编辑</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -87,7 +87,7 @@
 
     <!--弹出框-->
 
-    <el-dialog title="用户管理" :visible.sync="dialogFormVisible" width="500px" @close="close">
+    <el-dialog title="用户管理" :visible.sync="dialogFormVisible" width="500px" @close="close" :close-on-press-escape=false :close-on-click-modal=false :show-close="false">
       <el-form :model="form">
         <el-form-item label="会员类型" label-width="120px">
           <el-select v-model="form.userType" placeholder="请选择会员类型">
@@ -134,7 +134,7 @@ export default {
       this.onload()
     },
     handleEdit(index, row) {
-      console.log(index, row)
+      // console.log(index, row)
       this.form = row
       this.dialogFormVisible = true
     },
@@ -153,13 +153,13 @@ export default {
       this.$http.post(this.$url + 'user/getUsersList', params).then((res) => {
         this.loading = true
         if (res.data.code === 2001) {
-          console.log('请求成功')
+          // console.log('请求成功')
           this.tableData = res.data.data
           this.total = res.data.count
           this.loading = false
         }
         if (res.data.code === 2004) {
-          console.log('请求失败')
+          // console.log('请求失败')
           this.loading = false
         }
       })

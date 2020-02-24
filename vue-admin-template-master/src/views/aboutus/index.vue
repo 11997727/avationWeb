@@ -12,7 +12,7 @@
     </el-form-item>
 
     <el-form-item>
-      <el-button type="primary" @click="submitForm('ruleForm')">立即创建</el-button>
+      <el-button type="primary" @click="submitForm('ruleForm')">确认</el-button>
       <el-button @click="resetForm('ruleForm')">重置</el-button>
     </el-form-item>
   </el-form>
@@ -77,9 +77,9 @@
         this.$refs.editor.clear()
       },
       onClick(e, editor) {
-        console.log('Element clicked')
-        console.log(e)
-        console.log(editor)
+        // console.log('Element clicked')
+        // console.log(e)
+        // console.log(editor)
       },
       // 清空内容
       clear () {

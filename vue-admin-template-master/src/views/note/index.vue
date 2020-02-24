@@ -5,7 +5,7 @@
         <el-input v-model="ruleForm.apiKey" />
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="submitForm('ruleForm')">立即创建</el-button>
+        <el-button type="primary" @click="submitForm('ruleForm')">确认</el-button>
         <el-button @click="resetForm('ruleForm')">重置</el-button>
       </el-form-item>
     </el-form>
@@ -46,7 +46,7 @@ export default {
     return {
       ruleForm: {
         apiKey: '',
-        noteId:''
+        noteId: ''
       },
       rules: {
         name: [
@@ -60,19 +60,15 @@ export default {
     this.init()
   },
   methods: {
-    init(){
+    init() {
       this.$http.post(this.$url + 'admin/initKey',).then((res) => {
-        if (res.data.code == '2001') {
-          this.ruleForm = res.data.data
-        } else {
-          this.ruleForm = []
-        }
+        this.ruleForm = res.data
       })
     },
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          this.$http.post(this.$url + 'admin/updateKey',this.ruleForm).then((res) => {
+          this.$http.post(this.$url + 'admin/updateKey', this.ruleForm).then((res) => {
             if (res.data.code == '2001') {
               this.$message({
                 message: '修改成功',

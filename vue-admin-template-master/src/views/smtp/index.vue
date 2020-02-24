@@ -22,7 +22,7 @@
         </el-select>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="submitForm('ruleForm')">立即创建</el-button>
+        <el-button type="primary" @click="submitForm('ruleForm')">确认</el-button>
         <el-button @click="resetForm('ruleForm')">重置</el-button>
       </el-form-item>
     </el-form>
@@ -102,11 +102,7 @@ export default {
   methods: {
     init() {
       this.$http.post(this.$url + 'admin/initSmtp',).then((res) => {
-        if (res.data.code == '2001') {
-          this.ruleForm = res.data.data
-        } else {
-          this.ruleForm = []
-        }
+          this.ruleForm = res.data
       })
     },
     submitForm(formName) {

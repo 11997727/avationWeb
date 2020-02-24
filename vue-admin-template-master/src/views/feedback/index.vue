@@ -34,12 +34,12 @@
           <el-button
             size="mini"
             @click="handleEdit(scope.$index, scope.row)"
-          >Look</el-button>
+          >查看</el-button>
           <el-button
             size="mini"
             type="danger"
             @click="handleDelete(scope.$index, scope.row)"
-          >Delete</el-button>
+          >删除</el-button>
         </template>
       </el-table-column>
 
@@ -96,7 +96,7 @@ export default {
   },
   methods: {
     handleEdit(index, row) {
-      console.log(row.feedbackId)
+      // console.log(row.feedbackId)
       this.centerDialogVisible=true
       this.$http.get(this.$url + 'feedback/queryFeedbackByFeedbackId', {
         params: { 'feedbackId': row.feedbackId }
@@ -135,13 +135,13 @@ export default {
       params.append('limit', this.size)
       this.$http.post(this.$url + 'feedback/feedbackList', params).then((res) => {
         if (res.data.code === 2001) {
-          console.log('请求成功')
+          // console.log('请求成功')
           this.tableData = res.data.data
           this.total = res.data.count
           this.loading=false
         }
         if (res.data.code === 2004) {
-          console.log('请求失败')
+          // console.log('请求失败')
         }
       })
     }

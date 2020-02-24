@@ -84,7 +84,7 @@
         </span>
       </el-tree>
       <!-- Form -->
-      <el-dialog title="新增一级目录" :visible.sync="dialogFormVisible">
+      <el-dialog title="新增一级目录" :visible.sync="dialogFormVisible" :close-on-press-escape=false :close-on-click-modal=false :show-close="false">
         <el-form ref="ruleForm" :model="ruleForm" :rules="rules" label-width="100px" class="demo-ruleForm">
           <el-form-item label="目录名称" prop="directoryNama">
             <el-input v-model="ruleForm.directoryNama" autocomplete="off" />
@@ -101,7 +101,7 @@
       </el-dialog>
 
       <!-- Form -->
-      <el-dialog title="新增子目录" :visible.sync="dialogFormVisible2">
+      <el-dialog title="新增子目录" :visible.sync="dialogFormVisible2" :close-on-press-escape=false :close-on-click-modal=false :show-close="false">
         <el-form ref="ruleForm2" :model="ruleForm2" :rules="rules" label-width="100px" class="demo-ruleForm">
           <el-form-item label="目录名称" prop="directoryNama">
             <el-input v-model="ruleForm2.directoryNama" autocomplete="off" />
@@ -118,7 +118,7 @@
       </el-dialog>
 
       <!-- Form -->
-      <el-dialog title="修改" :visible.sync="dialogFormVisible3">
+      <el-dialog title="修改" :visible.sync="dialogFormVisible3" :close-on-press-escape=false :close-on-click-modal=false :show-close="false">
         <el-form ref="ruleForm3" :model="ruleForm3" :rules="rules" label-width="100px" class="demo-ruleForm">
           <el-form-item label="目录名称" prop="directoryNama">
             <el-input v-model="ruleForm3.directoryNama" autocomplete="off" />
@@ -315,12 +315,12 @@ export default {
         if (valid) {
           this.ruleForm2.regulationsForeignKey = this.regulationsId
           this.dialogFormVisible2 = false
-          console.log("这是父级目录")
-          console.log(JSON.stringify(this.ruleForm2.data))
+          // console.log("这是父级目录")
+          // console.log(JSON.stringify(this.ruleForm2.data))
 
           // 如果添加的是一级目录下的节点那么  目录线索就是一级目录主键加一级目录的线索
           if (this.ruleForm2.data.pid == '0') {
-            console.log("是在一级目录下添加的")
+            // console.log("是在一级目录下添加的")
             this.ruleForm2.directoryKey = this.ruleForm2.data.id + this.ruleForm2.data.directoryKey
           } else {
             // 如果不是一级目录下的节点  那么，目录线索就是父节目录的线索加父节目录的主键加-
@@ -350,7 +350,7 @@ export default {
                 this.$set(this.ruleForm2.data, 'children', [])
               }
               this.ruleForm2.data.children.push(newChild)
-              console.log(JSON.stringify(newChild))
+              // console.log(JSON.stringify(newChild))
               this.getData()// 需要异步刷新更新目录顺序，不需要更新目录顺序直接注释
               this.quxiao2(formName)
             } else {
@@ -381,8 +381,8 @@ export default {
       } else {
         directoryKey = data.directoryKey + data.id + '-'
       }
-      console.log(directoryId)
-      console.log(directoryKey)
+      // console.log(directoryId)
+      // console.log(directoryKey)
       const params = new URLSearchParams()
       params.append('directoryId', directoryId)
       params.append('directoryKey', directoryKey)
@@ -441,7 +441,7 @@ export default {
       params.append('directoryId', this.regulationsId)
       this.$http.post(this.$url + 'directory/selectDirectoryById2', params).then((res) => {
         if (res.data.code == '2001') {
-          console.log(JSON.stringify(res.data.data))
+          // console.log(JSON.stringify(res.data.data))
           this.data = res.data.data
           this.flag = false
         } else {

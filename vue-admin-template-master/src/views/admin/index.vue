@@ -51,12 +51,12 @@
           <el-button
             size="mini"
             @click="handleEdit(scope.$index, scope.row)"
-          >Edit</el-button>
+          >编辑</el-button>
           <el-button
             size="mini"
             type="danger"
             @click="handleDelete(scope.$index, scope.row)"
-          >Delete</el-button>
+          >删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -74,7 +74,7 @@
 
     <!--添加弹出框-->
 
-    <el-dialog title="添加子管理员" :visible.sync="dialogFormVisible" width="500px">
+    <el-dialog title="添加子管理员" :visible.sync="dialogFormVisible" width="500px" :close-on-press-escape=false :close-on-click-modal=false :show-close="false">
       <el-form ref="ruleForm" :model="ruleForm" :rules="rules" class="demo-ruleForm">
         <el-form-item label="管理员姓名：" label-width="120px" prop="adminName">
           <el-input v-model="ruleForm.adminName" autocomplete="off" />
@@ -87,14 +87,14 @@
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button @click="quxiao">取 消</el-button>
+        <el-button @click="quxiao('ruleForm')">取 消</el-button>
         <el-button type="primary" @click="onSubmit('ruleForm')">确 定</el-button>
       </div>
     </el-dialog>
 
     <!--修改弹出框-->
 
-    <el-dialog title="管理子管理员" :visible.sync="formVisible" width="500px" @close="close">
+    <el-dialog title="管理子管理员" :visible.sync="formVisible" width="500px" @close="close" :close-on-press-escape=false :close-on-click-modal=false :show-close="false">
       <el-form ref="form" :model="form" :rules="adminRules" class="demo-ruleForm">
         <el-form-item label="手机号：" label-width="120px" prop="adminPhone">
           <el-input v-model.number="form.adminPhone" autocomplete="off" :readonly="true" />
@@ -183,8 +183,8 @@ export default {
     onAdd() {
       this.dialogFormVisible = true
     },
-    onSubmit(formName) {
-      this.$refs[formName].validate((valid) => {
+    onSubmit(ruleForm) {
+      this.$refs[ruleForm].validate((valid) => {
         if (valid) {
           this.$http.post(this.$url + 'admin/addAdmin', this.ruleForm).then((res) => {
             this.loading = true
@@ -199,22 +199,23 @@ export default {
               this.$message.error('添加失败')
             }
             this.dialogFormVisible = false
-            this.ruleForm.adminName=''
-            this.ruleForm.adminPhone=''
-            this.ruleForm.adminPassword=''
+            this.$refs[ruleForm].resetFields();
             this.onload()
           })
         } else {
           console.log('error submit!!')
-          return false
+          // this.dialogFormVisible = false
+          // this.loading = true
+          // return false
         }
       })
     },
-    quxiao(){
+    quxiao(ruleForm){
       this.dialogFormVisible = false
-      this.ruleForm.adminName=''
-      this.ruleForm.adminPhone=''
-      this.ruleForm.adminPassword=''
+      // this.ruleForm.adminName=''
+      // this.ruleForm.adminPhone=''
+      // this.ruleForm.adminPassword=''
+      this.$refs[ruleForm].resetFields();
     },
     onChange(formName) {
       this.$refs[formName].validate((valid) => {
@@ -284,13 +285,13 @@ export default {
       this.$http.post(this.$url + 'admin/showAdmin', params).then((res) => {
         this.loading = true
         if (res.data.code === 2001) {
-          console.log('请求成功')
+          // console.log('请求成功')
           this.tableData = res.data.data
           this.total = res.data.count
           this.loading = false
         }
         if (res.data.code === 3001) {
-          console.log('请求失败')
+          // console.log('请求失败')
           this.loading = false
         }
       })

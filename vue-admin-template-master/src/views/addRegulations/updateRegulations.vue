@@ -291,7 +291,7 @@ export default {
         this.$refs[formName].validate((valid) => {
           if (valid) {
             var _this = this
-            console.log(JSON.stringify(_this.ruleForm))
+            // console.log(JSON.stringify(_this.ruleForm))
             this.$http.post(this.$url + 'regulations/updateRegulations', _this.ruleForm).then((res) => {
               if (res.data.code == '2001') {
                 this.$message({
