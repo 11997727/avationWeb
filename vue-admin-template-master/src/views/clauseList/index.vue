@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-form ref="ruleForm" :model="ruleForm"  label-width="100px" class="demo-ruleForm">
+    <el-form ref="ruleForm" :model="ruleForm" label-width="100px" class="demo-ruleForm">
       <el-row :gutter="20" class="demo-form-inline" style="margin-top: 30px;margin-left:30px">
         <el-col :span="6">
           <el-form-item label="法规" prop="regulationsId">
@@ -148,7 +148,6 @@
 export default {
   name: 'RegulationsList',
   data() {
-
     return {
       tableData: [],
       search: '',
@@ -233,19 +232,23 @@ export default {
       params.append('regulationsId', this.ruleForm.regulationsId)
       params.append('clauseAntistop', this.ruleForm.clauseAntistop)
       params.append('clauseNo', this.ruleForm.clauseNo)
-      this.$http.post(this.$url + 'clause/showClause', params).then((res) => {
-        if (res.data.code == '2001') {
-          this.loading = false
-          this.tableData = res.data.data
-          this.total = res.data.count
-          this.pageSize = res.data.limit
-          this.currentPage = res.data.page
-        } else {
-          this.total = res.data.count
-          this.loading = false
-          this.tableData = []
-        }
-      })
+      if (typeof (this.ruleForm.clauseNo) == "number" || this.ruleForm.clauseNo == '') {
+        this.$http.post(this.$url + 'clause/showClause', params).then((res) => {
+          if (res.data.code == '2001') {
+            this.loading = false
+            this.tableData = res.data.data
+            this.total = res.data.count
+            this.pageSize = res.data.limit
+            this.currentPage = res.data.page
+          } else {
+            this.total = res.data.count
+            this.loading = false
+            this.tableData = []
+          }
+        })
+      }else{
+        this.$message.error('请输入正确条款号')
+      }
     }
   }
 }

@@ -44,7 +44,7 @@
       <el-upload
         ref="upload"
         class="upload-demo"
-        action="http://localhost:8080/regulations/doUpload"
+        action="http://122.51.34.215:8081/regulations/doUpload"
         :on-preview="handlePreviewPDF"
         :on-remove="handleRemovePDF"
         :on-success="uploadSuccess"
