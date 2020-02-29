@@ -43,7 +43,7 @@ Vue.use(ElementUI, { locale })
 // })
 Vue.config.productionTip = false
 Vue.prototype.$http = axios// vue原型对象上添加全局属性 别的组件如果用 直接this.$http
-Vue.prototype.$url = 'http://122.51.34.215:8081/'
+Vue.prototype.$url = 'http://localhoat:8080/'
 new Vue({
   el: '#app',
   router,
